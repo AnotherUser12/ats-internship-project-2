@@ -1,0 +1,102 @@
+body{
+    display: flex;
+    justify-content: space-around;
+}
+#searchAndSortContainer{
+    display: flex;
+    width: fit-content;
+    height: fit-content;
+    flex-direction: row;
+    align-items: center;
+    margin-bottom: 5vh;
+}
+#searchBar{
+    width: 10vw;
+    margin-right: 5vw;
+}
+#sort{
+    width: 5vw;
+}
+#depListTitle{
+    display: flex;
+    width: fit-content;
+    height: fit-content;
+    flex-direction: row;
+    align-items: center;
+}
+#depListTitleId{
+    width: 5vw;
+}
+#depListTitleName{
+    width: 10vw;
+}
+
+#depListTitleEditLink{
+    width: 5vw;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+#depListTitleDeleteLink{
+    width: 5vw;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.dep{
+    display: flex;
+    width: fit-content;
+    height: 15vh;
+    flex-direction: row;
+    align-items: center;
+}
+.depName{
+    color: blue;
+    width: 10vw;
+}
+.depId{
+    color: red;
+    width: 5vw;
+}
+
+.depEditLinkContainer{
+    width: 5vw;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor:pointer;
+}
+.depDeleteLinkContainer{
+    width: 5vw;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor:pointer;
+}
+.depEditLink{
+    height: 80%;
+    min-width: fit-content;
+    width: 80%;
+    background-color: lightblue;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor:pointer;
+    color: #FFFFFF;
+    text-decoration: none;
+}
+.depDeleteLink{
+    height: 80%;
+    min-width: fit-content;
+    width: 80%;
+    background-color: lightcoral;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor:pointer;
+    color: #FFFFFF;
+    text-decoration: none;
+}
+

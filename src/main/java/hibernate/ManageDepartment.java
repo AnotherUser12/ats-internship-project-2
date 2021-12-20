@@ -1,8 +1,10 @@
 package hibernate;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Iterator;
 
+import data.Employee;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
@@ -21,11 +23,11 @@ public class ManageDepartment {
         }
     }
 
-    public static void main(String[] args){
-        ManageDepartment md = new ManageDepartment();
-
-        md.listDepartments();
-    }
+//    public static void main(String[] args){
+//        ManageDepartment md = new ManageDepartment();
+//
+//        md.listDepartments();
+//    }
     /* Method to CREATE an employee in the database */
     public Integer addDepartment(String name){
         Session session = factory.openSession();
@@ -53,8 +55,8 @@ public class ManageDepartment {
 
         try {
             tx = session.beginTransaction();
-            List employees = session.createQuery("FROM Department").list();
-            for (Iterator iterator = employees.iterator(); iterator.hasNext();){
+            List departments = session.createQuery("FROM Department").list();
+            for (Iterator iterator = departments.iterator(); iterator.hasNext();){
                 Department department = (Department) iterator.next();
                 System.out.print("Name: " +department.getName() + "\n");
             }
@@ -65,6 +67,29 @@ public class ManageDepartment {
         } finally {
             session.close();
         }
+    }
+
+    public ArrayList<Department> getDepartments( ){
+        Session session = factory.openSession();
+        Transaction tx = null;
+
+        try {
+            tx = session.beginTransaction();
+            List departments = session.createQuery("FROM Department").list();
+            ArrayList<Department> depArray = new ArrayList<Department>();
+            for (Iterator iterator = departments.iterator(); iterator.hasNext();) {
+                Department department = (Department) iterator.next();
+                depArray.add(department);
+            }
+            tx.commit();
+            return depArray;
+        } catch (HibernateException e) {
+            if (tx!=null) tx.rollback();
+            e.printStackTrace();
+        } finally {
+            session.close();
+        }
+        return null;
     }
 
     /* Method to UPDATE salary for an employee */
@@ -85,6 +110,34 @@ public class ManageDepartment {
             session.close();
         }
     }
+    public String getDepartmentName(Integer departmentID){
+        Session session = factory.openSession();
+        Transaction tx = null;
+
+        try {
+            tx = session.beginTransaction();
+            Department department = (Department)session.get(Department.class, departmentID);
+            String name = department.getName();
+            tx.commit();
+            return name;
+        } catch (HibernateException e) {
+            if (tx!=null) tx.rollback();
+            e.printStackTrace();
+        } finally {
+            session.close();
+        }
+        return null;
+    }
+
+    public int getDepartmentId(String name){
+        List<Department> departments = getDepartments();
+        for(Department department: departments){
+            if(department.getName().equals(name)){
+                return department.getId();
+            }
+        }
+        return -1;
+    }
 
     /* Method to DELETE an employee from the records */
     public void deleteDepartment(Integer departmentID){
@@ -102,5 +155,28 @@ public class ManageDepartment {
         } finally {
             session.close();
         }
+    }
+
+    public boolean hasEmployees(int departmentID, ManageEmployee manageEmployee){
+        List<Employee> employees = manageEmployee.getEmployees();
+        for(Employee employee: employees){
+            if(employee.getDepartment_id() == departmentID){
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    public List<Employee> getEmployees(int departmentID, ManageEmployee manageEmployee){
+        List<Employee> allEmployees = manageEmployee.getEmployees();
+        List<Employee> employees = new ArrayList<Employee>();
+        for(Employee employee: allEmployees){
+            if(employee.getDepartment_id() == departmentID){
+                employees.add(employee);
+            }
+        }
+
+        return employees;
     }
 }

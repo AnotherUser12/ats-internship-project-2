@@ -1,0 +1,41 @@
+<html>
+<head>
+    <link rel="stylesheet" href="ManageDepartments.css">
+</head>
+<body>
+
+<div>
+    <div id="searchAndSortContainer">
+        <input type="text" id="searchBar"/>
+
+        <select name="sort" id="sort">
+            <option value="Id">Id</option>
+            <option value="Name">Name</option>
+        </select>
+    </div>
+    <div id="depListTitle">
+        <div id="depListTitleId">Id</div>
+        <div id="depListTitleName">Name</div>
+        <div id="depListTitleEditLink">Edit</div>
+        <div id="depListTitleDeleteLink">Delete</div>
+    </div>
+    -------------------------------------------------------------------------
+    <div id="depList">
+    </div>
+</div>
+<div>
+    <div id="piechart1"></div>
+    <div id="piechart2"></div>
+</div>
+
+
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+<script th:inline="javascript">
+    var depNames = [[${depNames}]];
+    var depIds = [[${depIds}]];
+    var depEmployeeCounts = [[${depEmployeeCounts}]];
+    var depAverageSalaries = [[${depAverageSalaries}]];
+</script>
+<script src="ManageDepartments.js"></script>
+</body>
+</html>

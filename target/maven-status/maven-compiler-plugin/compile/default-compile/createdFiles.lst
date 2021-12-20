@@ -1,6 +1,7 @@
-hibernate\ManageDepartment.class
 springMVC\ServingWebContentApplication.class
-data\Employee.class
 hibernate\ManageEmployee.class
-springMVC\ManageDepartmentsController.class
+springMVC\ManagementController.class
+hibernate\ManageDepartment.class
+data\Employee.class
+springMVC\HomeController.class
 data\Department.class

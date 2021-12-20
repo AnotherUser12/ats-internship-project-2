@@ -1,0 +1,132 @@
+#searchAndSortContainer{
+    display: flex;
+    width: fit-content;
+    height: fit-content;
+    flex-direction: row;
+    align-items: center;
+    margin-bottom: 5vh;
+}
+#searchBar{
+    width: 10vw;
+    margin-right: 2vw;
+}
+#searchSelect{
+    margin-left: 0.5vw;
+    margin-right: 5vw;
+}
+#sort{
+    margin-left: 0.5vw;
+    width: 5vw;
+}
+#empListTitle{
+    display: flex;
+    width: fit-content;
+    height: fit-content;
+    flex-direction: row;
+    align-items: center;
+}
+#empListTitleId{
+    width: 5vw;
+}
+#empListTitleName{
+    width: 10vw;
+    margin-right: 2vw;
+}
+#empListTitleEmail{
+    width: 15vw;
+    margin-right: 2vw;
+}
+#empListTitleSalary{
+    width: 5vw;
+    margin-right: 2vw;
+}
+#empListTitleDepartment{
+    width: 10vw;
+    margin-right: 2vw;
+}
+#empListTitleEditLink{
+    width: 5vw;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+#empListTitleDeleteLink{
+    width: 5vw;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.emp{
+    display: flex;
+    width: fit-content;
+    height: 15vh;
+    flex-direction: row;
+    align-items: center;
+}
+.empId{
+    color: red;
+    width: 5vw;
+}
+.empName{
+    color: blue;
+    width: 10vw;
+    margin-right: 2vw;
+}
+.empEmail{
+    color: blue;
+    width: 15vw;
+    margin-right: 2vw;
+
+}
+.empSalary{
+    color: blue;
+    width: 5vw;
+    margin-right: 2vw;
+
+}
+.empDepartment{
+    color: blue;
+    width: 10vw;
+    margin-right: 2vw;
+}
+.empEditLinkContainer{
+    width: 5vw;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor:pointer;
+}
+.empDeleteLinkContainer{
+    width: 5vw;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor:pointer;
+}
+.empEditLink{
+    height: 80%;
+    min-width: fit-content;
+    width: 80%;
+    background-color: lightblue;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor:pointer;
+    color: #FFFFFF;
+    text-decoration: none;
+}
+.empDeleteLink{
+    height: 80%;
+    min-width: fit-content;
+    width: 80%;
+    background-color: lightcoral;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor:pointer;
+    color: #FFFFFF;
+    text-decoration: none;
+}
+

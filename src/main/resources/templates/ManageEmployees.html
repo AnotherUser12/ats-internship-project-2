@@ -1,0 +1,54 @@
+<html>
+<head>
+    <link rel="stylesheet" href="ManageEmployees.css">
+</head>
+<body>
+<div id="searchAndSortContainer">
+    <input type="text" id="searchBar"/>
+    Search By:
+    <select name="searchSelect" id="searchSelect">
+        <option value="Name">Name</option>
+        <option value="Email">Email</option>
+        <option value="Department">Department</option>
+        <option value="With Equivalent Salary">With Equivalent Salary</option>
+        <option value="With Greater Salary">With Greater Salary</option>
+        <option value="With Smaller Salary">With Smaller Salary</option>
+
+    </select>
+    Sort By:
+    <select name="sort" id="sort">
+        <option value="Id">Id</option>
+        <option value="Name">Name</option>
+        <option value="Email">Email</option>
+        <option value="Salary">Salary</option>
+        <option value="Department">Department</option>
+    </select>
+</div>
+<div id="empListTitle">
+    <div id="empListTitleId">Id</div>
+    <div id="empListTitleName">Name</div>
+    <div id="empListTitleEmail">Email</div>
+    <div id="empListTitleSalary">Salary</div>
+    <div id="empListTitleDepartment">Department</div>
+    <div id="empListTitleEditLink">Edit</div>
+    <div id="empListTitleDeleteLink">Delete</div>
+</div>
+-------------------------------------------------------------------------------------------------------------------------------------------------------
+<div id="empList">
+
+</div>
+
+<script th:inline="javascript">
+    var empIds = [[${empIds}]];
+    var empNames = [[${empNames}]];
+    var empEmails = [[${empEmails}]];
+    var empSalaries = [[${empSalaries}]];
+    var empDepartments = [[${empDepartments}]];
+</script>
+<script src="ManageEmployees.js"></script>
+<div id="piechart"></div>
+
+
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+</body>
+</html>

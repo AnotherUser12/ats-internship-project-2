@@ -1,9 +1,11 @@
 package hibernate;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Date;
 import java.util.Iterator;
 
+import data.Department;
 import data.Employee;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
@@ -22,10 +24,34 @@ public class ManageEmployee {
         }
     }
 
-    public static void main (String[] args){
-        ManageEmployee me = new ManageEmployee();
-        me.listEmployees();
+//    public static void main (String[] args){
+//        ManageEmployee me = new ManageEmployee();
+//        me.listEmployees();
+//    }
+
+    public ArrayList<Employee> getEmployees( ){
+        Session session = factory.openSession();
+        Transaction tx = null;
+
+        try {
+            tx = session.beginTransaction();
+            List employees = session.createQuery("FROM Employee").list();
+            ArrayList<Employee> empArray = new ArrayList<Employee>();
+            for (Iterator iterator = employees.iterator(); iterator.hasNext();) {
+                Employee employee = (Employee) iterator.next();
+                empArray.add(employee);
+            }
+            tx.commit();
+            return empArray;
+        } catch (HibernateException e) {
+            if (tx!=null) tx.rollback();
+            e.printStackTrace();
+        } finally {
+            session.close();
+        }
+        return null;
     }
+
 
     /* Method to CREATE an employee in the database */
     public Integer addEmployee(String name, String email, double salary, int department_id){
@@ -76,7 +102,41 @@ public class ManageEmployee {
     }
 
     /* Method to UPDATE salary for an employee */
-    public void updateEmployee(Integer EmployeeID, int salary ){
+    public void updateEmployeeName(Integer EmployeeID, String name){
+        Session session = factory.openSession();
+        Transaction tx = null;
+
+        try {
+            tx = session.beginTransaction();
+            Employee employee = (Employee)session.get(Employee.class, EmployeeID);
+            employee.setName(name);
+            session.update(employee);
+            tx.commit();
+        } catch (HibernateException e) {
+            if (tx!=null) tx.rollback();
+            e.printStackTrace();
+        } finally {
+            session.close();
+        }
+    }
+    public void updateEmployeeEmail(Integer EmployeeID, String email){
+        Session session = factory.openSession();
+        Transaction tx = null;
+
+        try {
+            tx = session.beginTransaction();
+            Employee employee = (Employee)session.get(Employee.class, EmployeeID);
+            employee.setEmail(email);
+            session.update(employee);
+            tx.commit();
+        } catch (HibernateException e) {
+            if (tx!=null) tx.rollback();
+            e.printStackTrace();
+        } finally {
+            session.close();
+        }
+    }
+    public void updateEmployeeSalary(Integer EmployeeID, int salary ){
         Session session = factory.openSession();
         Transaction tx = null;
 
@@ -84,6 +144,23 @@ public class ManageEmployee {
             tx = session.beginTransaction();
             Employee employee = (Employee)session.get(Employee.class, EmployeeID);
             employee.setSalary( salary );
+            session.update(employee);
+            tx.commit();
+        } catch (HibernateException e) {
+            if (tx!=null) tx.rollback();
+            e.printStackTrace();
+        } finally {
+            session.close();
+        }
+    }
+    public void updateEmployeeDepartment(Integer EmployeeID, int departmentID){
+        Session session = factory.openSession();
+        Transaction tx = null;
+
+        try {
+            tx = session.beginTransaction();
+            Employee employee = (Employee)session.get(Employee.class, EmployeeID);
+            employee.setDepartment_id(departmentID);
             session.update(employee);
             tx.commit();
         } catch (HibernateException e) {
