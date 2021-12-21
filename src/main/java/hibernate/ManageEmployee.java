@@ -1,9 +1,6 @@
 package hibernate;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Date;
-import java.util.Iterator;
+import java.util.*;
 
 import data.Department;
 import data.Employee;
@@ -12,6 +9,11 @@ import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
+
+import javax.validation.ConstraintViolation;
+import javax.validation.Validation;
+import javax.validation.Validator;
+import javax.validation.ValidatorFactory;
 
 public class ManageEmployee {
     private static SessionFactory factory;
@@ -61,7 +63,25 @@ public class ManageEmployee {
 
         try {
             tx = session.beginTransaction();
+
+            //Create ValidatorFactory which returns validator
+            ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
+            //It validates bean instances
+            Validator validator = factory.getValidator();
+
             Employee employee = new Employee(name, email, salary, department_id);
+
+            //Validate bean
+            Set<ConstraintViolation<Employee>> constraintViolations = validator.validate(employee);
+
+            //Show errors
+            if (constraintViolations.size() > 0) {
+                for (ConstraintViolation<Employee> violation : constraintViolations) {
+                    System.out.println(violation.getMessage());
+                }
+                return -1;
+            }
+
             employeeID = (Integer) session.save(employee);
             tx.commit();
         } catch (HibernateException e) {
@@ -108,8 +128,26 @@ public class ManageEmployee {
 
         try {
             tx = session.beginTransaction();
+
+            //Create ValidatorFactory which returns validator
+            ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
+            //It validates bean instances
+            Validator validator = factory.getValidator();
+
             Employee employee = (Employee)session.get(Employee.class, EmployeeID);
             employee.setName(name);
+
+            //Validate bean
+            Set<ConstraintViolation<Employee>> constraintViolations = validator.validate(employee);
+
+            //Show errors
+            if (constraintViolations.size() > 0) {
+                for (ConstraintViolation<Employee> violation : constraintViolations) {
+                    System.out.println(violation.getMessage());
+                }
+                return;
+            }
+
             session.update(employee);
             tx.commit();
         } catch (HibernateException e) {
@@ -125,8 +163,25 @@ public class ManageEmployee {
 
         try {
             tx = session.beginTransaction();
+
+            //Create ValidatorFactory which returns validator
+            ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
+            //It validates bean instances
+            Validator validator = factory.getValidator();
+
             Employee employee = (Employee)session.get(Employee.class, EmployeeID);
             employee.setEmail(email);
+
+            //Validate bean
+            Set<ConstraintViolation<Employee>> constraintViolations = validator.validate(employee);
+
+            //Show errors
+            if (constraintViolations.size() > 0) {
+                for (ConstraintViolation<Employee> violation : constraintViolations) {
+                    System.out.println(violation.getMessage());
+                }
+                return;
+            }
             session.update(employee);
             tx.commit();
         } catch (HibernateException e) {
@@ -142,8 +197,24 @@ public class ManageEmployee {
 
         try {
             tx = session.beginTransaction();
+
+            //Create ValidatorFactory which returns validator
+            ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
+            //It validates bean instances
+            Validator validator = factory.getValidator();
+
             Employee employee = (Employee)session.get(Employee.class, EmployeeID);
             employee.setSalary( salary );
+
+            Set<ConstraintViolation<Employee>> constraintViolations = validator.validate(employee);
+            //Show errors
+            if (constraintViolations.size() > 0) {
+                for (ConstraintViolation<Employee> violation : constraintViolations) {
+                    System.out.println(violation.getMessage());
+                }
+                return;
+            }
+
             session.update(employee);
             tx.commit();
         } catch (HibernateException e) {
